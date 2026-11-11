@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css?v=2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIERARCHY — A King's Decree</title>
+  </head>
+  <body>
+<main class="game">
+  <header class="game-header">
+    <div class="crown">
+ <img src="./Lion.png" alt="Crowned Lion"> 
+</div>
+    <h1>HIERARCHY</h1>
+    <p class="subtitle">A King's Decree</p>
+  </header>
+
+  <div class="strike-dots" id="strike-dots">
+  <span class="strike-dot"></span>
+  <span class="strike-dot"></span>
+  <span class="strike-dot"></span>
+</div>
+
+  <section id="court" class="court"></section>
+<div class="action-row">
+  <section class="card-area">
+  <div class="draw-pile">
+    <div class="card-back"></div>
+    <div id="drawn-card" class="card-face">?</div>
+  </div>
+</section>
+
+  <section class="controls">
+    
+    <button id="discard-btn">RULES</button>
+  </section>
+</div>
+  <footer class="game-footer">
+    <button id="rules-btn">RULES</button>
+    <button id="stats-btn">THE NUMBERS</button>
+    <button id="share-btn" type="button">SHARE</button>
+  </footer>
+  <div class="copyright">
+  © 2026 <a href="mailto:arithmetika2@gmail.com" class="creator-email">Kenneth Murray</a> · HIERARCHY — A King's Decree · All Rights Reserved
+</div>
+  <div class="cross-promo">
+  <span class="promo-invitation">ENJOYED THE CHALLENGE?</span>
+  <a href="https://canadiankid.online" class="promo-link" target="_blank" rel="noopener noreferrer">Discover Canadian Kid</a>
+</div>
+</main>
+   <div id="game-toast" class="game-toast" hidden>
+  <div class="toast-panel">
+    <div class="toast-eyebrow">HIERARCHY · A KING'S DECREE</div>
+    <h2 id="toast-title">THE KING'S DECREE</h2>
+    <p id="toast-message"></p>
+    <p class="toast-countdown">New game begins in <span id="toast-seconds">10</span> seconds.</p>
+    <button id="toast-numbers" type="button">THE NUMBERS</button>
+<button id="toast-share" type="button">SHARE</button>
+  </div>
+</div>
+    <div id="numbers-panel" class="game-toast" hidden>
+  <div class="toast-panel">
+    <div class="toast-eyebrow">HIERARCHY · A KING'S DECREE</div>
+    <h2>THE NUMBERS</h2>
+    <div id="numbers-content"></div>
+    <button id="numbers-close" type="button">CLOSE</button>
+  </div>
+</div>
+    <script src="./script.js"></script>
+  </body>
+</html>
