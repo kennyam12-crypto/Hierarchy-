@@ -2,6 +2,7 @@
 // Initial 16-position court layout
 
 const court = document.getElementById("court");
+const placementCounter = document.getElementById("placement-counter");
 const positions = [
   [50, 9],
   [42, 25], [58, 25],
@@ -133,7 +134,8 @@ court.querySelectorAll(".court-slot").forEach(slot => {
     slot.style.fontWeight = "bold";
 
     cardsPlaced++;
-   
+placementCounter.textContent = cardsPlaced;
+placementCounter.hidden = false;   
 if (["K", "A"].includes(currentCard.rank) && strikes > 0) {
   strikes--;
   royalPardons++;
@@ -264,6 +266,8 @@ function resetGame() {
   });
 
   cardsPlaced = 0;
+ placementCounter.textContent = "";
+placementCounter.hidden = true; 
   strikes = 0;
   royalPardons = 0;
   currentCard = null;
