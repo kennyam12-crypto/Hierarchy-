@@ -25,7 +25,7 @@ body {
 }
 #placement-counter {
   position: absolute;
-  top: 160px;
+  top: 157px;
   left: 50%;
   transform: translateX(-50%);
   color: #c62828;
