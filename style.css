@@ -782,3 +782,8 @@ font-size: 8px;
 .cross-promo .promo-link:hover {
   text-decoration: underline !important;
 }
+@media (min-width: 600px) {
+  #placement-counter {
+    top: 220px;
+  }
+}
