@@ -23,7 +23,23 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
+#placement-counter {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #c62828;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+}
 
+#placement-counter[hidden] {
+  visibility: hidden;
+}
 .crown {
   font-size: 30px;
   display: flex;
