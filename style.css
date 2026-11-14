@@ -539,7 +539,7 @@ padding-left: 0;
   transform: translateX(-50%);
   white-space: nowrap;
   color: #c8d5e3;
-  font: normal 9px Georgia, serif;
+  font: normal 9px Arial, sans-serif;
   letter-spacing: 0.5px;
 }
 @media (max-width: 480px) {
