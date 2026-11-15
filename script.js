@@ -136,18 +136,18 @@ court.querySelectorAll(".court-slot").forEach(slot => {
     cardsPlaced++;
 placementCounter.textContent = cardsPlaced;
 placementCounter.hidden = false;   
-if (["K", "A"].includes(currentCard.rank) && strikes > 0) {
+if (["K", "A", "7"].includes(currentCard.rank) && strikes > 0) {
   strikes--;
   royalPardons++;
   const strikeDots = document.querySelectorAll(".strike-dot");
   strikeDots[strikes].classList.remove("used");
   
 const originalCardText = slot.textContent;
-
+const isMercy = currentCard.rank === "7";
 slot.innerHTML = `
-  <span style="font-size:9px;color:#b8860b;">ROYAL</span>
+  <span style="font-size:9px;color:#b8860b;">${isMercy ? "KING’S" : "ROYAL"}</span>
   <span>${originalCardText}</span>
-  <span style="font-size:9px;color:#b8860b;">PARDON</span>
+  <span style="font-size:9px;color:#b8860b;">${isMercy ? "MERCY" : "PARDON"}</span>
 `;
 
 slot.style.flexDirection = "column";
@@ -459,8 +459,9 @@ rulesButton.addEventListener("click", () => {
         <p>2. Ace is low. King is high.</p>
         <p>3. Cards must increase from left to right and from bottom to top.</p>
         <p>4. The three circles represent strikes. Each discarded card fills one circle. Three strikes end the game.</p>
-        <p>5. ROYAL PARDON: Legally placing an Ace or King removes one accumulated strike.</p>
-        <p>6. Multiple Royal Pardons may be earned in one game.</p>
+      <p>5. ROYAL PARDON: Legally placing an Ace or King removes one accumulated strike.</p>
+<p>6. KING'S MERCY: Legally placing a 7 removes one accumulated strike.</p>
+<p>7. Multiple Royal Pardons and King's Mercies may be earned in one game.</p>  
         <button id="close-hierarchy-rules">CLOSE</button>
       </div>
     `;
