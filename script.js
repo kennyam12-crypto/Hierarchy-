@@ -577,6 +577,9 @@ rulesButton.addEventListener("click", () => {
       <p>5. ROYAL PARDON: Legally placing an Ace or King removes one accumulated strike.</p>
 <p>6. KING'S MERCY: Legally placing a 7 removes one accumulated strike.</p>
 <p>7. Multiple Royal Pardons and King's Mercies may be earned in one game.</p>  
+<p>8. TRIPLE CROWN — THREE OF A KIND: Legally placing three cards of the same rank removes ALL accumulated strikes. Aces, Kings, 6s, and 7s are excluded. At least one strike must exist when the third card is placed. All three qualifying cards receive permanent golden crowns.</p>
+<p>9. TRIPLE CROWN — CONSECUTIVE RANKS: Legally placing three cards with consecutive ranks (such as 3, 4, 5 or 4, 5, 6) removes ALL accumulated strikes. Cards may be placed in any order. Aces, 7s, and Kings are excluded. Each qualifying sequence can earn this bonus only once per game.</p>
+<p>10. TRIPLE CROWN CONDITIONS: Each bonus requires at least one accumulated strike. Every Triple Crown must use three previously uncrowned cards. Each qualifying group receives its own color.</p>
         <button id="close-hierarchy-rules">CLOSE</button>
       </div>
     `;
