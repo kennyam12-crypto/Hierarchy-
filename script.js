@@ -153,6 +153,8 @@ court.querySelectorAll(".court-slot").forEach(slot => {
     cardsPlaced++;
 placementCounter.textContent = cardsPlaced;
 placementCounter.hidden = false;   
+   rankPlacementCounts[currentCard.rank] =
+  (rankPlacementCounts[currentCard.rank] || 0) + 1; 
 if (["K", "A", "7"].includes(currentCard.rank) && strikes > 0) {
   strikes--;
   royalPardons++;
@@ -224,7 +226,7 @@ const matchingSlots = sequence.map(rank =>
     ? slot
     : courtSlots.find(s => s.dataset.rank === rank)
 );
-if (!matchingSlots.every(Boolean)) continue;
+if (!matchingSlots.every(Boolean) || strikes === 0) continue;
  completedCrownSequences.add(sequenceKey);    
  if (strikes > 0) {
   strikes = 0;
