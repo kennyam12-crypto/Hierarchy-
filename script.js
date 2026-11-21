@@ -48,6 +48,21 @@ const drawnCard = document.getElementById("drawn-card");
 const drawPile = document.querySelector(".draw-pile");
 let rankPlacementCounts = {};
 const completedCrownSequences = new Set();
+const tripleCrownColors = [
+  { background: "#fff4c2", glow: "#d4af37" },
+  { background: "#ddf2e3", glow: "#9acfa9" },
+  { background: "#e8ddf8", glow: "#b8a0db" }
+];
+
+let tripleCrownColorIndex = 0;
+
+function nextTripleCrownColor() {
+  const color = tripleCrownColors[
+    tripleCrownColorIndex % tripleCrownColors.length
+  ];
+  tripleCrownColorIndex++;
+  return color;
+}
 function drawNextCard() {
   if (currentCard !== null || deck.length === 0) return;
 
