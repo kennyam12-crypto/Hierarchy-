@@ -205,10 +205,16 @@ if (
     }
   });
 }
-const crownRanks = ["2", "3", "4", "5", "6", "8", "9", "10", "J", "Q"];
+const crownSequences = [
+  ["2", "3", "4"],
+  ["3", "4", "5"],
+  ["4", "5", "6"],
+  ["8", "9", "10"],
+  ["9", "10", "J"],
+  ["10", "J", "Q"]
+];
 const courtSlots = [...document.querySelectorAll(".court-slot")];
-   for (let i = 0; i < crownRanks.length - 2; i++) {
-  const sequence = crownRanks.slice(i, i + 3);
+   for (const sequence of crownSequences) {
   const sequenceKey = sequence.join("-");
 
   if (completedCrownSequences.has(sequenceKey)) continue;
