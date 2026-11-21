@@ -215,13 +215,15 @@ const crownSequences = [
 ];
 const courtSlots = [...document.querySelectorAll(".court-slot")];
    for (const sequence of crownSequences) {
+    if (!sequence.includes(currentCard.rank)) continue; 
   const sequenceKey = sequence.join("-");
 
   if (completedCrownSequences.has(sequenceKey)) continue;
 const matchingSlots = sequence.map(rank =>
-  courtSlots.find(slot => slot.dataset.rank === rank)
+  rank === currentCard.rank
+    ? slot
+    : courtSlots.find(s => s.dataset.rank === rank)
 );
-
 if (!matchingSlots.every(Boolean)) continue;
  completedCrownSequences.add(sequenceKey);    
  if (strikes > 0) {
