@@ -241,7 +241,7 @@ const matchingSlots = sequence.map(rank =>
     ? slot
     : courtSlots.find(s => s.dataset.rank === rank)
 );
-if (!matchingSlots.every(Boolean) || strikes === 0) continue;
+if (!matchingSlots.every(s => s && s.dataset.tripleCrown !== "true") || strikes === 0) continue;
  completedCrownSequences.add(sequenceKey);    
  if (strikes > 0) {
   strikes = 0;
@@ -252,6 +252,7 @@ if (!matchingSlots.every(Boolean) || strikes === 0) continue;
  const crownColor = nextTripleCrownColor();
 
 matchingSlots.forEach(crownSlot => {
+  if (crownSlot.dataset.tripleCrown === "true") return;
   crownSlot.dataset.tripleCrown = "true";
   crownSlot.style.borderColor = crownColor.glow;
   crownSlot.style.boxShadow = `0 0 14px 3px ${crownColor.glow}`;
