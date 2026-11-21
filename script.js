@@ -46,7 +46,8 @@ let currentCard = null;
 
 const drawnCard = document.getElementById("drawn-card");
 const drawPile = document.querySelector(".draw-pile");
-
+let rankPlacementCounts = {};
+const completedCrownSequences = new Set();
 function drawNextCard() {
   if (currentCard !== null || deck.length === 0) return;
 
@@ -59,7 +60,21 @@ updateActionButton();
   drawnCard.style.color =
     ["♥", "♦"].includes(currentCard.suit) ? "#c62828" : "#222222";
 }
+function checkAutomaticDefeat() {
+  if (strikes !== 2 || !currentCard || gameOver) return;
 
+  const slots = [...court.querySelectorAll(".court-slot")];
+  const hasLegalMove = slots.some(slot =>
+    !slot.dataset.value && isLegalPlacement(slot, currentCard)
+  );
+
+  if (!hasLegalMove) {
+    gameOver = true;
+    drawPile.style.pointerEvents = "none";
+    discardButton.disabled = true;
+    showGameEnding("defeat");
+  }
+}
 if (drawPile && drawnCard) {
   drawPile.style.cursor = "pointer";
   drawPile.addEventListener("click", drawNextCard);
@@ -124,6 +139,8 @@ court.querySelectorAll(".court-slot").forEach(slot => {
 
     slot.dataset.value = currentCard.value;
     slot.textContent = currentCard.rank + currentCard.suit;
+   slot.dataset.rank = currentCard.rank; 
+    slot.dataset.suit = currentCard.suit;
     slot.style.color = ["♥", "♦"].includes(currentCard.suit)
       ? "#c62828" : "#222222";
     slot.style.background = "#f8f6f1";
@@ -160,6 +177,70 @@ setTimeout(() => {
 
 }
 
+if (
+  !["A", "K", "6", "7"].includes(currentCard.rank) &&
+  rankPlacementCounts[currentCard.rank] === 3 &&
+  strikes > 0
+) {
+  strikes = 0;
+  document.querySelectorAll(".strike-dot").forEach(dot => {
+    dot.classList.remove("used");
+  });
+
+  const crownColor = nextTripleCrownColor();
+  document.querySelectorAll(".court-slot").forEach(crownSlot => {
+    if (crownSlot.dataset.rank === currentCard.rank) {
+      crownSlot.innerHTML = `
+        <span style="font-size:9px;color:#b8860b;">TRIPLE</span>
+        <span>${currentCard.rank} 👑</span>
+        <span style="font-size:9px;color:#b8860b;">CROWN</span>
+      `;
+      crownSlot.dataset.tripleCrown = "true";
+      crownSlot.style.flexDirection = "column";
+      crownSlot.style.justifyContent = "space-evenly";
+      crownSlot.style.color = "#222222";
+      crownSlot.style.background = crownColor.background;
+      crownSlot.style.borderColor = crownColor.glow;
+      crownSlot.style.boxShadow = `0 0 14px 3px ${crownColor.glow}`;
+    }
+  });
+}
+const crownRanks = ["2", "3", "4", "5", "6", "8", "9", "10", "J", "Q"];
+const courtSlots = [...document.querySelectorAll(".court-slot")];
+   for (let i = 0; i < crownRanks.length - 2; i++) {
+  const sequence = crownRanks.slice(i, i + 3);
+  const sequenceKey = sequence.join("-");
+
+  if (completedCrownSequences.has(sequenceKey)) continue;
+const matchingSlots = sequence.map(rank =>
+  courtSlots.find(slot => slot.dataset.rank === rank)
+);
+
+if (!matchingSlots.every(Boolean)) continue;
+ completedCrownSequences.add(sequenceKey);    
+ if (strikes > 0) {
+  strikes = 0;
+  document.querySelectorAll(".strike-dot").forEach(dot => {
+    dot.classList.remove("used");
+  });
+}
+ const crownColor = nextTripleCrownColor();
+
+matchingSlots.forEach(crownSlot => {
+  crownSlot.dataset.tripleCrown = "true";
+  crownSlot.style.borderColor = crownColor.glow;
+  crownSlot.style.boxShadow = `0 0 14px 3px ${crownColor.glow}`;
+  crownSlot.style.background = crownColor.background;
+crownSlot.innerHTML = `
+  <span style="font-size:9px;color:#b8860b;">TRIPLE</span>
+  <span>${crownSlot.dataset.rank}${crownSlot.dataset.suit} 👑</span>
+  <span style="font-size:9px;color:#b8860b;">CROWN</span>
+`;
+crownSlot.style.flexDirection = "column";
+crownSlot.style.justifyContent = "space-evenly";
+crownSlot.style.color = "#222222";
+}); 
+   } 
 if (cardsPlaced === 16) {
   gameOver = true;
   drawPile.style.pointerEvents = "none";
@@ -234,6 +315,8 @@ drawPile.addEventListener("click", () => {
 
 function resetGame() {
   // Restore and reshuffle the deck.
+  rankPlacementCounts = {};
+completedCrownSequences.clear();
   deck.length = 0;
 
   suits.forEach(suit => {
@@ -251,6 +334,12 @@ function resetGame() {
   court.querySelectorAll(".court-slot").forEach(slot => {
     slot.textContent = "";
     delete slot.dataset.value;
+    delete slot.dataset.rank;
+    delete slot.dataset.suit;
+    delete slot.dataset.tripleCrown;
+slot.style.boxShadow = "";
+    slot.style.borderColor = "";
+    slot.classList.remove("royal-pardon");
     slot.style.background = "";
     slot.style.color = "";
     slot.style.display = "";
