@@ -343,6 +343,7 @@ function resetGame() {
   // Restore and reshuffle the deck.
   rankPlacementCounts = {};
 completedCrownSequences.clear();
+  tripleCrownColorIndex = 0;
   deck.length = 0;
 
   suits.forEach(suit => {
